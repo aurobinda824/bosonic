@@ -22,7 +22,11 @@ class GKPQubit(BosonicQubit):
 
         if "delta" not in self.params:
             self.params["delta"] = 0.25
-        self.params["l"] = 2.0 * jnp.sqrt(jnp.pi)
+
+        if 'd' not in self.params:
+            self.params['d'] = 2
+
+        self.params["l"] = jnp.sqrt(jnp.pi * self.params['d'])
         s_delta = jnp.sinh(self.params["delta"] ** 2)
         self.params["epsilon"] = s_delta * self.params["l"]
 
