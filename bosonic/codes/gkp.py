@@ -148,7 +148,7 @@ class GKPQudit(BosonicQubit):
         return self.common_gates["Z"]
 
 
-class RectangularGKPQubit(GKPQubit):
+class RectangularGKPQubit(GKPQudit):
     def _params_validation(self):
         super()._params_validation()
         if "a" not in self.params:
@@ -161,13 +161,13 @@ class RectangularGKPQubit(GKPQubit):
         return x_axis, z_axis
 
 
-class SquareGKPQubit(GKPQubit):
+class SquareGKPQubit(GKPQudit):
     def _params_validation(self):
         super()._params_validation()
         self.params["a"] = 1.0
 
 
-class HexagonalGKPQubit(GKPQubit):
+class HexagonalGKPQubit(GKPQudit):
     def _get_axis(self):
         a = jnp.sqrt(2 / jnp.sqrt(3))
         x_axis = a * (
