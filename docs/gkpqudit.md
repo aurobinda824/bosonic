@@ -4,7 +4,7 @@
 
 The GKP qubit implementation was designed specifically for a 2-dimensional system (qubit).
 
-The parameter d (dimension) was fixed to 2, implicitly defining the system as a qubit without support for higher-dimensional systems (qudits).
+The parameter d (dimension of qudit) was fixed to 2, implicitly defining the system as a qubit without support for higher-dimensional systems (qudits).
 
 # Now
 
@@ -14,4 +14,12 @@ Users can now define the dimension of the GKP system using the parameter d. By d
 
 # example
 ```python
-self.params['d'] = 2
+from bosonic.codes.gkp import GKPQudit 
+
+q0 = GKPQudit()
+```
+q0.params['d'] will have value of 2 by default. To change this 
+
+```python
+q0.params['d'] = 5
+```
