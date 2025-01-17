@@ -11,9 +11,9 @@ import jax.numpy as jnp
 import jax.scipy as jsp
 
 
-class GKPQubit(BosonicQubit):
+class GKPQudit(BosonicQubit):
     """
-    GKP Qubit Class.
+    GKP Qudit Class.
     """
     name = "gkp"
 
