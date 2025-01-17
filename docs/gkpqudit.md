@@ -11,3 +11,7 @@ The parameter d (dimension) was fixed to 2, implicitly defining the system as a 
 The _params_validation method has been extended to support qudits of arbitrary dimensions.
 
 Users can now define the dimension of the GKP system using the parameter d. By default, the value of d is set to 2, maintaining backward compatibility with qubit implementations.
+
+# example
+'''python
+self.params['d'] = 2
