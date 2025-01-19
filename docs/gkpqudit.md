@@ -1,4 +1,4 @@
-## Modifications of _params_validation Method on GKP Qudit
+# Modifications of _params_validation Method on GKP Qudit
 
 # Before
 

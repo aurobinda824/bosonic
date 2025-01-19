@@ -11,7 +11,7 @@ import jax.numpy as jnp
 import jax.scipy as jsp
 
 
-class GKPQudit(BosonicQubit):
+class GKPQubit(BosonicQubit):
     """
     GKP Qudit Class.
     """
@@ -148,7 +148,7 @@ class GKPQudit(BosonicQubit):
         return self.common_gates["Z"]
 
 
-class RectangularGKPQubit(GKPQudit):
+class RectangularGKPQubit(GKPQubit):
     def _params_validation(self):
         super()._params_validation()
         if "a" not in self.params:
@@ -161,13 +161,13 @@ class RectangularGKPQubit(GKPQudit):
         return x_axis, z_axis
 
 
-class SquareGKPQubit(GKPQudit):
+class SquareGKPQubit(GKPQubit):
     def _params_validation(self):
         super()._params_validation()
         self.params["a"] = 1.0
 
 
-class HexagonalGKPQubit(GKPQudit):
+class HexagonalGKPQubit(GKPQubit):
     def _get_axis(self):
         a = jnp.sqrt(2 / jnp.sqrt(3))
         x_axis = a * (
