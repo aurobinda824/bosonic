@@ -39,7 +39,7 @@ class GKPQubit(BosonicQubit):
         # phase space
         self.common_gates["x"] = (self.common_gates["a_dag"] + self.common_gates["a"]) / jnp.sqrt(self.params['d'])
         self.common_gates["p"] = (1.0j * (self.common_gates["a_dag"] - self.common_gates["a"]) / jnp.sqrt(self.params['d']))
-        
+
         # finite energy
         self.common_gates["E"] = jqt.expm(
             -self.params["delta"] ** 2
@@ -57,9 +57,10 @@ class GKPQubit(BosonicQubit):
         y_axis = x_axis + z_axis
 
         # gates
-        X_0 = jqt.expm(1.0j * self.params["l"] / 2.0 * z_axis)
-        Z_0 = jqt.expm(1.0j * self.params["l"] / 2.0 * x_axis)
+        X_0 = jqt.expm(1.0j * self.params["l"] * jnp.sqrt(2) / self.params['d'] * z_axis)
+        Z_0 = jqt.expm(1.0j * self.params["l"] * jnp.sqrt(2) / self.params['d']* x_axis)
         Y_0 = 1.0j * X_0 @ Z_0
+        
         self.common_gates["X"] = self._make_op_finite_energy(X_0)
         self.common_gates["Z"] = self._make_op_finite_energy(Z_0)
         self.common_gates["Y"] = self._make_op_finite_energy(Y_0)
