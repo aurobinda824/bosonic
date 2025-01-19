@@ -60,24 +60,16 @@ class GKPQubit(BosonicQubit):
         X_0 = jqt.expm(1.0j * self.params["l"] * jnp.sqrt(2) / self.params['d'] * z_axis)
         Z_0 = jqt.expm(1.0j * self.params["l"] * jnp.sqrt(2) / self.params['d']* x_axis)
         Y_0 = 1.0j * X_0 @ Z_0
-        
+
         self.common_gates["X"] = self._make_op_finite_energy(X_0)
         self.common_gates["Z"] = self._make_op_finite_energy(Z_0)
         self.common_gates["Y"] = self._make_op_finite_energy(Y_0)
 
         # symmetric stabilizers and gates
-        self.common_gates["Z_s_0"] = self._symmetrized_expm(
-            1.0j * self.params["l"] / 2.0 * x_axis
-        )
-        self.common_gates["S_x_0"] = self._symmetrized_expm(
-            1.0j * self.params["l"] * z_axis
-        )
-        self.common_gates["S_z_0"] = self._symmetrized_expm(
-            1.0j * self.params["l"] * x_axis
-        )
-        self.common_gates["S_y_0"] = self._symmetrized_expm(
-            1.0j * self.params["l"] * y_axis
-        )
+        self.common_gates["Z_s_0"] = self._symmetrized_expm(1.0j * self.params["l"] / self.params['d'] * x_axis)
+        self.common_gates["S_x_0"] = self._symmetrized_expm(1.0j * self.params["l"] * z_axis * jnp.sqrt(2))
+        self.common_gates["S_z_0"] = self._symmetrized_expm(1.0j * self.params["l"] * x_axis * jnp.sqrt(2))
+        self.common_gates["S_y_0"] = self._symmetrized_expm(1.0j * self.params["l"] * y_axis * jnp.sqrt(2))
 
     def _get_basis_z(self) -> Tuple[jqt.Qarray, jqt.Qarray]:
         """
