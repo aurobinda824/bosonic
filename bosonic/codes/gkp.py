@@ -37,13 +37,9 @@ class GKPQubit(BosonicQubit):
         super()._gen_common_gates()
 
         # phase space
-        self.common_gates["x"] = (
-            self.common_gates["a_dag"] + self.common_gates["a"]
-        ) / jnp.sqrt(2.0)
-        self.common_gates["p"] = (
-            1.0j * (self.common_gates["a_dag"] - self.common_gates["a"]) / jnp.sqrt(2.0)
-        )
-
+        self.common_gates["x"] = (self.common_gates["a_dag"] + self.common_gates["a"]) / jnp.sqrt(self.params['d'])
+        self.common_gates["p"] = (1.0j * (self.common_gates["a_dag"] - self.common_gates["a"]) / jnp.sqrt(self.params['d']))
+        
         # finite energy
         self.common_gates["E"] = jqt.expm(
             -self.params["delta"] ** 2
