@@ -41,16 +41,8 @@ class GKPQubit(BosonicQubit):
         self.common_gates["p"] = (1.0j * (self.common_gates["a_dag"] - self.common_gates["a"]) / jnp.sqrt(self.params['d']))
 
         # finite energy
-        self.common_gates["E"] = jqt.expm(
-            -self.params["delta"] ** 2
-            * self.common_gates["a_dag"]
-            @ self.common_gates["a"]
-        )
-        self.common_gates["E_inv"] = jqt.expm(
-            self.params["delta"] ** 2
-            * self.common_gates["a_dag"]
-            @ self.common_gates["a"]
-        )
+        self.common_gates["E"] = jqt.expm(-self.params["delta"] ** 2* self.common_gates["a_dag"]@ self.common_gates["a"])
+        self.common_gates["E_inv"] = jqt.expm(self.params["delta"] ** 2* self.common_gates["a_dag"]@ self.common_gates["a"])
 
         # axis
         x_axis, z_axis = self._get_axis()
