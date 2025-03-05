@@ -65,24 +65,11 @@ class GKPQubit(BosonicQubit):
 
     def _get_basis_z(self) -> Tuple[jqt.Qarray, jqt.Qarray]:
         """
-        Construct basis states |+-x>, |+-y>, |+-z>.
-        step 1: use ideal GKP stabilizers to find ideal GKP |+z> state
-        step 2: make ideal eigenvector finite energy
-            We want the groundstate of H = E H_0 E⁻¹.
-            So, we can begin by find the groundstate of H_0 -> |λ₀⟩
-            Then, we know that E|λ₀⟩ = |λ⟩ is the groundstate of H.
-            pf. H|λ⟩ = (E H_0 E⁻¹)(E|λ₀⟩) = E H_0 |λ₀⟩ = λ₀ (E|λ₀⟩) = λ₀|λ⟩
+        Construct basis states |+z> and |-z> for the GKP qubit.
 
-        TODO (if necessary):
-            Alternatively, we could construct a hamiltonian using
-            finite energy stabilizers S_x, S_y, S_z, Z_s. However,
-            this would make H = - S_x - S_y - S_z - Z_s non-hermitian.
-            Currently, JAX does not support derivatives of jnp.linalg.eig,
-            while it does support derivatives of jnp.linalg.eigh.
-            Discussion: https://github.com/google/jax/issues/2748
+        Returns:
+            Tuple[jqt.Qarray, jqt.Qarray]: The |+z> and |-z> basis states.
         """
-
-        # step 1: use ideal GKP stabilizers to find ideal GKP |+z> state
         H_0 = (
             -self.common_gates["S_x_0"]
             - self.common_gates["S_y_0"]
@@ -96,7 +83,6 @@ class GKPQubit(BosonicQubit):
         # step 2: make ideal eigenvector finite energy
         gstate = self.common_gates["E"] @ gstate_ideal
 
-        N = self.params["N"]
         plus_z = jqt.unit(gstate)
         minus_z = self.common_gates["X"] @ plus_z
         return plus_z, minus_z
